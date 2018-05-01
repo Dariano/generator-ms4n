@@ -1,0 +1,5 @@
+--require tests/integration/helpers.js
+--reporter spec
+--watch-extensions js
+--recursive
+--slow 500

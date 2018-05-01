@@ -1,0 +1,19 @@
+const app = require('../config/express')()
+const configServer = require('../config/config-server')
+// const swagger = require('../swagger-docs/swagger')
+
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
+configServer
+    .buscar()
+    .then(async (config) => {
+        // try {
+        //     await swagger.iniciar(app)
+        // } catch (erro) {
+        //     console.log('Ocorreu erro ao subir o swagger: ', erro)
+        // }
+
+        await app.listen(config.host().port)
+        console.log(`Servidor executando na porta: ${config.host().port}`)
+    })
+    .catch(erro => console.error(erro))

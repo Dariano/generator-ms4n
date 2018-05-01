@@ -1,0 +1,56 @@
+#!groovy
+
+node ('master') {
+    try {
+        def nodeHome = tool name: 'node-8.9.1', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+        env.PATH = "$nodeHome/bin:$env.PATH"
+
+        stage 'Validando dependências do projeto'
+            sh "node -v"
+            sh "npm -v"
+
+        stage 'Baixando projeto'
+            checkout scm
+
+        stage 'Instalando dependências'
+            sh "npm install"
+
+        stage 'Executa testes'
+            sh "npm test"
+
+        stage 'Contruindo imagem docker'
+            sh "npm run docker-build"
+
+        stage 'Enviando imagem docker para o nexus'
+            def APP_NOME = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').name"').trim()
+            def VERSAO = sh(returnStdout: true, script: 'node -pe "require(\'./package.json\').version"').trim()
+            DOCKER_ROPO = "$VERSAO".contains("RELEASE") ?  "$DOCKER_RELEASE_REPO" : "$DOCKER_SNAPSHOT_REPO"
+
+            withCredentials([usernamePassword(credentialsId: 'nexus_docker', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USER')]) {
+                sh "docker tag unicred/$APP_NOME:$VERSAO $DOCKER_ROPO/unicred/$APP_NOME:$VERSAO"
+                sh "docker login -p '$DOCKER_PASSWORD' -u $DOCKER_USER $DOCKER_ROPO"
+                sh "docker push $DOCKER_ROPO/unicred/$APP_NOME:$VERSAO"
+            }
+
+        stage 'Deploy kubernetes'
+            withCredentials([usernamePassword(credentialsId: 'nexus_docker', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USER')]) {
+                def replicas = 1
+                def image = "$DOCKER_ROPO/unicred/$APP_NOME:$VERSAO"
+                def nameSpace = 'credito'
+                def profile = 'test'
+                def context = 'cluster-tst'
+                sh "/var/lib/jenkins/scripts/kubernetes_deploy.sh $replicas $APP_NOME $image $nameSpace $WORKSPACE $profile $context"
+            }
+
+    } catch (err) {
+        withCredentials([string(credentialsId: "SlackToken", variable: 'SLACK_TOKEN')]) {
+            slackSend(
+                channel: '#credito-team',
+                color: 'danger',
+                message: "O job $JOB_NAME tá pegando fogo, bicho! $BUILD_URL",
+                teamDomain: 'unicred', token: SLACK_TOKEN)
+        }
+
+        throw err
+    }
+}

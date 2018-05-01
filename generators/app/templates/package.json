@@ -1,0 +1,80 @@
+{
+    "name": "<%=name%>",
+    "version": "1.0.0-SNAPSHOT",
+    "description": "<%=descricao%>",
+    "main": "./src/bin/www",
+    "scripts": {
+      "prestart": "npm i",
+      "start": "npm run pm2 -- start src/config/pm2.config.js",
+      "dev": "npm run pm2 -- start src/config/pm2.config.js --env dev",
+      "test": "NODE_ENV=test nyc mocha --opts tests/integration/mocha.opts tests/integration/ mocha --opts tests/unit/mocha.opts tests/unit/",
+      "test:win": "npm run test:integrationWin",
+      "test:integration": "NODE_ENV=test mocha --opts tests/integration/mocha.opts tests/integration/",
+      "test:unit": "NODE_ENV=test mocha --opts tests/unit/mocha.opts tests/unit/",
+      "test:integrationWin": "set NODE_ENV=test&&nyc mocha --opts tests/integration/mocha.opts tests/integration/",
+      "pm2": "pm2",
+      "docker-build": "docker build -t unicred/$(node -pe \"require('./package.json').name\"):$(node -pe \"require('./package.json').version\") .",
+      "debug": "DEBUG='*' npm run delete && npm run start",
+      "debug:dev": "DEBUG='*' npm run delete && npm run dev",
+      "logs": "npm run pm2 -- logs <%= name %> --lines 100",
+      "delete": "npm run pm2 delete <%= name %>",
+      "restart": "pm2 restart <%= name %>"
+    },
+    "author": "dariano",
+    "license": "ISC",
+    "dependencies": {
+      "axios": "^0.16.2",
+      "body-parser": "^1.17.2",
+      "consign": "^0.1.6",
+      "cpf_cnpj": "^0.2.0",
+      "express": "^4.15.3",
+      "express-validator": "^4.3.0",
+      "git-repo-info": "^1.4.1",
+      "http-status": "^1.0.1",
+      "js-yaml": "^3.10.0",
+      "method-override": "^2.3.9",
+      "moment": "^2.18.1",
+      "pm2": "^2.6.1",
+      "standard-http-error": "^2.0.0",
+      "swagger-tools": "^0.10.3"
+    },
+    "devDependencies": {
+      "axios-debug-log": "^0.3.0",
+      "chai": "^4.1.0",
+      "chai-fs": "^1.0.0",
+      "debug": "^3.1.0",
+      "mocha": "^3.5.0",
+      "nock": "^9.0.14",
+      "nyc": "^11.3.0",
+      "sinon": "^4.1.2",
+      "supertest": "^3.0.0"
+    },
+    "nyc": {
+      "statements": 99,
+      "branches": 90,
+      "functions": 93,
+      "lines": 99,
+      "include": [
+        "**/src/**/*.js"
+      ],
+      "exclude": [
+        "**/src/config/pm2.config.js",
+        "**/src/swagger-docs/**/*.js"
+      ],
+      "check-coverage": true,
+      "per-file": true,
+      "watermarks": {
+        "lines": [95, 99],
+        "functions": [95, 99],
+        "branches": [ 95, 99],
+        "statements": [95, 99]
+      },
+      "reporter": [
+        "html",
+        "text-summary"
+      ],
+      "cache": true,
+      "all": true,
+      "report-dir": "./tests/coverage"
+    }
+  }

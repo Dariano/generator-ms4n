@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: <%= name %>
+spec:
+  replicas: ${REPLICAS}
+  template:
+    metadata:
+      labels:
+        app: ${APP}
+    spec:
+      containers:
+      - name: ${APP}
+        image: ${DOCKER_IMAGE}
+        imagePullPolicy: Always
+        env:
+         - name: NODE_ENV
+           value: ${PROFILE}
+        ports:
+        - containerPort: 8080

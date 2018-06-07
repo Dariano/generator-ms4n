@@ -7,13 +7,13 @@ First, install [Yeoman](http://yeoman.io) and generator-ms-4-n using [npm](https
 
 ```bash
 npm install -g yo
-npm install -g generator-ms-4-n
+npm install -g generator-ms4n
 ```
 
 Then generate your new project:
 
 ```bash
-yo ms-4-n
+yo ms4n
 ```
 
 ## Getting To Know Yeoman

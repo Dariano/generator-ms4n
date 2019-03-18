@@ -1,4 +1,4 @@
-# generator-ms-4-n [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-ms4n [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > Boilerplate para microsserviços em nodejs.
 
 ## Installation
@@ -7,13 +7,13 @@ First, install [Yeoman](http://yeoman.io) and generator-ms-4-n using [npm](https
 
 ```bash
 npm install -g yo
-npm install -g generator-ms-4-n
+npm install -g generator-ms4n
 ```
 
 Then generate your new project:
 
 ```bash
-yo ms-4-n
+yo ms4n
 ```
 
 ## Getting To Know Yeoman

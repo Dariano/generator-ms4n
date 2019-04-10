@@ -1,11 +1,16 @@
 Configurações
 
  - Instalar os componentes `swagger-jsdoc` e `swagger-tools`
-  > npm i -S swagger-jsdoc swagger-tools
+  ```sh
+  npm i -S swagger-jsdoc swagger-tools
+  ```
 
  - Criar um diretório `src/swagger-doc` e um arquivo `index.js`
-  > mkdir src/swagger-doc
-  > touch src/swagger-doc/index.js
+  
+```sh
+  mkdir src/swagger-doc
+  touch src/swagger-doc/index.js
+```
 
  - No arquivo `index.js` adicionar o código abaixo
  

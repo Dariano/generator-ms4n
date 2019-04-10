@@ -73,6 +73,41 @@ module.exports = (req, res, next) => {
 }
 ```
 
+ - Seguraça, criar arquivo em `src/swagger-doc/security.yaml` e adiciona o seguindo código.
+ 
+ ```yaml
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: Authorization
+ ```
+
+ - Adicionar em `src/swagger-doc/index.js` a seguinte referência.
+
+ ```js
+apis: [..., './src/swagger-doc/*.yaml']
+ ```
+
+ - Nos endpoints adicionar o security.
+
+ ```js
+/**
+* @swagger
+* /events-portal-bff/v1/company/{id}:
+*   get:
+*     security:
+*       - ApiKeyAuth: []
+*     description: Return the company
+*     tags: [Company]
+*     parameters:
+*       - $ref: '#/parameters/idCompany'
+*     responses:
+*       200:
+*         description: Company
+*/
+ ```
+
  - Configurar os endpoints, seguir as documentações.
 
 [[https://github.com/Surnet/swagger-jsdoc/blob/098078b469/example/v2/routes.js]]

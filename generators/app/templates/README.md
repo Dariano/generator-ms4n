@@ -110,8 +110,9 @@ apis: [..., './src/swagger-doc/*.yaml']
 
  - Configurar os endpoints, seguir as documentações.
 
-[[https://github.com/Surnet/swagger-jsdoc/blob/098078b469/example/v2/routes.js]]
-[[https://github.com/apigee-127/swagger-tools/blob/master/samples/2.0/petstore.json]]
+https://github.com/Surnet/swagger-jsdoc/blob/098078b469/example/v2/routes.js
+
+https://github.com/apigee-127/swagger-tools/blob/master/samples/2.0/petstore.json
 
 > Ex: 
 

@@ -31,7 +31,7 @@ class Swagger {
 
           const options = {
             swaggerDefinition,
-            apis: ['./src/api/**/*-route.js']
+            apis: ['./src/api/**/*-route.js', './src/swagger/*yaml']
           };
 
           const swaggerSpec = swaggerJSDoc(options);

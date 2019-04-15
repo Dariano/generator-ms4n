@@ -83,12 +83,6 @@ securityDefinitions:
     name: Authorization
  ```
 
- - Adicionar em `src/swagger/index.js` a seguinte referência.
-
- ```js
-apis: [..., './src/swagger/*.yaml', './src/swagger/*.yaml']
- ```
-
  - Nos endpoints adicionar o security.
 
  ```js

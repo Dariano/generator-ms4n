@@ -31,7 +31,7 @@ class Swagger {
 
           const options = {
             swaggerDefinition,
-            apis: ['./src/api/**/*-route.js']
+            apis: ['./src/api/**/*-route.js', './src/swagger/*yaml']
           };
 
           const swaggerSpec = swaggerJSDoc(options);
@@ -81,12 +81,6 @@ securityDefinitions:
     type: apiKey
     in: header
     name: Authorization
- ```
-
- - Adicionar em `src/swagger/index.js` a seguinte referência.
-
- ```js
-apis: [..., './src/swagger/*.yaml', './src/swagger/*.yaml']
  ```
 
  - Nos endpoints adicionar o security.

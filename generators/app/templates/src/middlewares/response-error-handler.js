@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
 const { validationResult } = require('express-validator/check')
 
-const notificaErros = (res, erros) => {
+const notifyError = (res, erros) => {
     return res.status(httpStatus.UNPROCESSABLE_ENTITY).json(Object.values(erros.mapped()).map(valor => valor.msg))
 }
 
@@ -42,7 +42,7 @@ class ResponseErrorHandler {
     checkExistemErros(req, res, next) {
         const erros = validationResult(req)
         if (!erros.isEmpty()) {
-            return notificaErros(res, erros)
+            return notifyError(res, erros)
         }
 
         next()

@@ -35,14 +35,14 @@ module.exports = class extends Generator {
       this.destinationPath(
         `src/modules/${this.props.modulo}/${this.props.modulo}-factory.js`
       ),
-      { modulo: this.props.modulo }
+      { modulo: _.camelCase(this.props.modulo), urlBase: this.props.modulo }
     );
     this.fs.copyTpl(
       this.templatePath('api.spec.js'),
       this.destinationPath(
         `tests/integration/${this.props.modulo}/${this.props.modulo}-route.spec.js`
       ),
-      { modulo: _.camelCase(this.props.modulo), urlBase: this.modulo }
+      { modulo: _.camelCase(this.props.modulo), urlBase: this.props.modulo }
     );
   }
 };

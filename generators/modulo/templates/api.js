@@ -5,14 +5,14 @@ module.exports = (app) => {
     /** 
      * @swagger
      * tags:
-     *   name: Modulo
-     *   description: Descrição Modulo
+     *   name: <%= modulo %>
+     *   description: Description <%= modulo %>
      */
 
     /**
      * @swagger
      * definitions:
-     *   Modulo:
+     *   <%= modulo %>:
      *     required:
      *       - matchMakingId
      *       - questionType
@@ -49,20 +49,20 @@ module.exports = (app) => {
      *     description: Session ID
      *     required: true
      *     type: integer
-     *   moduloBody:
+     *   <%= modulo %>Body:
      *     in: body
-     *     name: Modulo
+     *     name: <%= modulo %>
      *     schema:
-     *       $ref: '#/definitions/Modulo'
+     *       $ref: '#/definitions/<%= modulo %>'
      */
 
     app.route(`${app.urlBase}/v1/<%= modulo %>`)
         /**
          * @swagger
-         * /events-portal-bff/v1/modulo:
+         * /events-portal-bff/v1/<%= modulo %>:
          *   get:
-         *     description: Fetch Modulo
-         *     tags: [Modulo]
+         *     description: Fetch <%= modulo %>
+         *     tags: [<%= modulo %>]
          *     security:
          *       - ApiKeyAuth: []
          *     produces:
@@ -71,39 +71,39 @@ module.exports = (app) => {
          *       - $ref: '#/parameters/idParam'
          *     responses:
          *       200:
-         *         description: Fetch modulos
+         *         description: Fetch <%= modulo %>s
          *         schema:
          *           type: array
          *           items:
-         *             $ref: '#/definitions/Modulo'
+         *             $ref: '#/definitions/<%= modulo %>'
          */
         .get(controller.getAll)
         /**
          * @swagger
-         * /events-portal-bff/v1/modulo:
+         * /events-portal-bff/v1/<%= modulo %>:
          *   post:
-         *     description: Create modulo
-         *     tags: [Modulo]
+         *     description: Create <%= modulo %>
+         *     tags: [<%= modulo %>]
          *     security:
          *       - ApiKeyAuth: []
          *     produces:
          *       - application/json
          *     parameters:
          *       - $ref: '#/parameters/idParam'
-         *       - $ref: '#/parameters/moduloBody'
+         *       - $ref: '#/parameters/<%= modulo %>Body'
          *     responses:
          *       201:
-         *         description: Create modulo
+         *         description: Create <%= modulo %>
          */
         .post(controller.create)
 
     app.route(`${app.urlBase}/v1/<%= modulo %>/:id`)
         /**
          * @swagger
-         * /events-portal-bff/v1/modulo/{id}:
+         * /events-portal-bff/v1/<%= modulo %>/{id}:
          *   get:
-         *     description: Fetch modulo
-         *     tags: [Modulo]
+         *     description: Fetch <%= modulo %>
+         *     tags: [<%= modulo %>]
          *     security:
          *       - ApiKeyAuth: []
          *     produces:
@@ -112,36 +112,36 @@ module.exports = (app) => {
          *       - $ref: '#/parameters/idParam'
          *     responses:
          *       200:
-         *         description: Fetch modulo
+         *         description: Fetch <%= modulo %>
          *         schema:
          *           type: object
-         *           $ref: '#/definitions/Modulo'
+         *           $ref: '#/definitions/<%= modulo %>'
          */
         .get(controller.get)
         /**
          * @swagger
-         * /events-portal-bff/v1/modulo/{id}:
+         * /events-portal-bff/v1/<%= modulo %>/{id}:
          *   put:
-         *     description: Update modulo
-         *     tags: [Modulo]
+         *     description: Update <%= modulo %>
+         *     tags: [<%= modulo %>]
          *     security:
          *       - ApiKeyAuth: []
          *     produces:
          *       - application/json
          *     parameters:
          *       - $ref: '#/parameters/idParam'
-         *       - $ref: '#/parameters/moduloBody'
+         *       - $ref: '#/parameters/<%= modulo %>Body'
          *     responses:
          *       204:
-         *         description: Update modulo
+         *         description: Update <%= modulo %>
          */
         .put(controller.update)
         /**
          * @swagger
-         * /events-portal-bff/v1/modulo/{id}:
+         * /events-portal-bff/v1/<%= modulo %>/{id}:
          *   delete:
-         *     description: Delete modulo
-         *     tags: [Modulo]
+         *     description: Delete <%= modulo %>
+         *     tags: [<%= modulo %>]
          *     security:
          *       - ApiKeyAuth: []
          *     produces:
@@ -150,7 +150,7 @@ module.exports = (app) => {
          *       - $ref: '#/parameters/idParam'
          *     responses:
          *       204:
-         *         description: Delete modulo
+         *         description: Delete <%= modulo %>
          */
         .delete(controller.remove)
 }

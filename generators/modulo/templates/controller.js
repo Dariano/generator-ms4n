@@ -1,6 +1,6 @@
 const httpStatus = require('http-status')
 const factory = require('./<%= modulo %>-factory')
-const { notificaErro } = require('../../middlewares/response-error-handler')
+const { notifyError } = require('../../middlewares/response-error-handler')
 
 class Controller {
     get(req, res) {
@@ -10,7 +10,7 @@ class Controller {
         factory
             .get(id, token)
             .then(item => res.json(item))
-            .catch(notificaErro(res))
+            .catch(notifyError(res))
     }
 
     getAll(req, res) {
@@ -19,7 +19,7 @@ class Controller {
         factory
             .getAll(token)
             .then(item => res.json(item))
-            .catch(notificaErro(res))
+            .catch(notifyError(res))
 
     }
 
@@ -29,8 +29,8 @@ class Controller {
 
         factory
             .create(<%= modulo %>, token)
-            .then(item => res.sendStatus(httpStatus.CREATED))
-            .catch(notificaErro(res))
+            .then(() => res.sendStatus(httpStatus.CREATED))
+            .catch(notifyError(res))
     }
 
     update(req, res) {
@@ -40,8 +40,8 @@ class Controller {
 
         factory
             .update(id, <%= modulo %>, token)
-            .then(item => res.sendStatus(httpStatus.OK))
-            .catch(notificaErro(res))
+            .then(() => res.sendStatus(httpStatus.OK))
+            .catch(notifyError(res))
     }
 
     remove(req, res) {
@@ -50,8 +50,8 @@ class Controller {
 
         factory
             .remove(id, token)
-            .then(item => res.sendStatus(httpStatus.NO_CONTENT))
-            .catch(notificaErro(res))
+            .then(() => res.sendStatus(httpStatus.NO_CONTENT))
+            .catch(notifyError(res))
     }
 }
 

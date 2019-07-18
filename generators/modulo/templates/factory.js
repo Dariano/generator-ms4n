@@ -3,7 +3,7 @@ const urlProvider = require('../../config/host-provider')
 
 class Factory {
     async get(id, token) {
-        const url = urlProvider.<%= modulo %>(`<%= urlBase %>/${id}`)
+        const url = urlProvider.<%= modulo %>(`v1/<%= urlBase %>/${id}`)
 
         const config = {
             headers: {
@@ -17,7 +17,7 @@ class Factory {
     }
 
     async getAll(token) {
-        const url = urlProvider.<%= modulo %>(`<%= urlBase %>`)
+        const url = urlProvider.<%= modulo %>(`v1/<%= urlBase %>`)
 
         const config = {
             headers: {
@@ -31,7 +31,7 @@ class Factory {
     }
 
     async create(<%= modulo %>, token) {
-        const url = urlProvider.<%= modulo %>(`<%= urlBase %>`)
+        const url = urlProvider.<%= modulo %>(`v1/<%= urlBase %>`)
 
         const config = {
             headers: {
@@ -45,7 +45,7 @@ class Factory {
     }
 
     async update(id, <%= modulo %>, token) {
-        const url = urlProvider.<%= modulo %>(`<%= urlBase %>/${id}`)
+        const url = urlProvider.<%= modulo %>(`v1/<%= urlBase %>/${id}`)
 
         const config = {
             headers: {
@@ -59,7 +59,7 @@ class Factory {
     }
 
     async remove(id, token) {
-        const url = urlProvider.<%= modulo %>(`<%= urlBase %>/${id}`)
+        const url = urlProvider.<%= modulo %>(`v1/<%= urlBase %>/${id}`)
 
         const config = {
             headers: {

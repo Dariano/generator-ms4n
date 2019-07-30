@@ -3,6 +3,7 @@ const factory = require('./<%= modulo %>-factory')
 const { notifyError } = require('../../middlewares/response-error-handler')
 
 class Controller {
+    <% if(httpVebs.some(v => v == 'GET')) { %>
     get(req, res) {
         const token = req.headers.authorization
         const id = req.params.id
@@ -11,8 +12,8 @@ class Controller {
             .get(id, token)
             .then(item => res.json(item))
             .catch(notifyError(res))
-    }
-
+    } <% } %>
+    <% if(httpVebs.some(v => v == 'GET-ALL')) { %>
     getAll(req, res) {
         const token = req.headers.authorization
 
@@ -21,8 +22,8 @@ class Controller {
             .then(item => res.json(item))
             .catch(notifyError(res))
 
-    }
-
+    } <% } %>
+    <% if(httpVebs.some(v => v == 'POST')) { %>
     create(req, res) {
         const token = req.headers.authorization
         const <%= modulo %> = req.body
@@ -31,8 +32,8 @@ class Controller {
             .create(<%= modulo %>, token)
             .then(() => res.sendStatus(httpStatus.CREATED))
             .catch(notifyError(res))
-    }
-
+    }<% } %>
+    <% if(httpVebs.some(v => v == 'PUT')) { %>
     update(req, res) {
         const token = req.headers.authorization
         const <%= modulo %> = req.body
@@ -42,8 +43,8 @@ class Controller {
             .update(id, <%= modulo %>, token)
             .then(() => res.sendStatus(httpStatus.OK))
             .catch(notifyError(res))
-    }
-
+    }<% } %>
+    <% if(httpVebs.some(v => v == 'DELETE')) { %>
     remove(req, res) {
         const token = req.headers.authorization
         const id = req.params.id
@@ -52,7 +53,7 @@ class Controller {
             .remove(id, token)
             .then(() => res.sendStatus(httpStatus.NO_CONTENT))
             .catch(notifyError(res))
-    }
+    }<% } %>
 }
 
 module.exports = new Controller()

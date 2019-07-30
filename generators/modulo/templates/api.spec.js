@@ -12,7 +12,7 @@ describe('Router: <%= modulo %>', () => {
 
         done()
     })
-
+    <% if(httpVebs.some(v => v == 'GET-ALL')) { %>
     describe('GET ' + PATH_BFF_BASE, () => {
         it('should get all <%= modulo %>s', (done) => {
             nock(config.host)
@@ -43,8 +43,8 @@ describe('Router: <%= modulo %>', () => {
                     done(err)
                 })
         })
-    })
-
+    })<% } %>
+    <% if(httpVebs.some(v => v == 'GET')) { %>
     describe('GET ' + PATH_BFF_BASE_ID, () => {
         it('should get <%= modulo %>', (done) => {
             nock(config.host)
@@ -75,8 +75,8 @@ describe('Router: <%= modulo %>', () => {
                     done(err)
                 })
         })
-    })
-
+    })<% } %>
+    <% if(httpVebs.some(v => v == 'POST')) { %>
     describe('POST ' + PATH_BFF_BASE, () => {
         it('should create <%= modulo %>', (done) => {
             nock(config.host)
@@ -107,9 +107,8 @@ describe('Router: <%= modulo %>', () => {
                     done(err)
                 })
         })
-    })
-
-
+    })<% } %>
+    <% if(httpVebs.some(v => v == 'PUT')) { %>
     describe('PUT ' + PATH_BFF_BASE_ID, () => {
         it('should update <%= modulo %>', (done) => {
             nock(config.host)
@@ -140,8 +139,8 @@ describe('Router: <%= modulo %>', () => {
                     done(err)
                 })
         })
-    })
-
+    })<% } %>
+    <% if(httpVebs.some(v => v == 'DELETE')) { %>
     describe('DELETE ' + PATH_BFF_BASE_ID, () => {
         it('should remove <%= modulo %>', (done) => {
             nock(config.host)
@@ -172,5 +171,5 @@ describe('Router: <%= modulo %>', () => {
                     done(err)
                 })
         })
-    })
+    })<% } %>
 });

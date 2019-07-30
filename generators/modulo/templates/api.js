@@ -55,8 +55,9 @@ module.exports = (app) => {
      *     schema:
      *       $ref: '#/definitions/<%= modulo %>'
      */
-
+<% if(httpVebs.some(v => v == 'GET-ALL' || v == 'POST')) { %>
     app.route(`${app.urlBase}/v1/<%= modulo %>`)
+    <% if(httpVebs.some(v => v == 'GET-ALL')) { %>
         /**
          * @swagger
          * /events-portal-bff/v1/<%= modulo %>:
@@ -77,7 +78,9 @@ module.exports = (app) => {
          *           items:
          *             $ref: '#/definitions/<%= modulo %>'
          */
-        .get(controller.getAll)
+        .get(controller.getAll) 
+    <% } 
+     if(httpVebs.some(v => v == 'POST')) { %>
         /**
          * @swagger
          * /events-portal-bff/v1/<%= modulo %>:
@@ -96,8 +99,11 @@ module.exports = (app) => {
          *         description: Create <%= modulo %>
          */
         .post(controller.create)
-
+    <% } %>
+<% } %>
+<% if(httpVebs.some(v => v == 'GET' || v == 'PUT' || v == 'DELETE')) { %>
     app.route(`${app.urlBase}/v1/<%= modulo %>/:id`)
+    <% if(httpVebs.some(v => v == 'GET')) { %>
         /**
          * @swagger
          * /events-portal-bff/v1/<%= modulo %>/{id}:
@@ -118,6 +124,8 @@ module.exports = (app) => {
          *           $ref: '#/definitions/<%= modulo %>'
          */
         .get(controller.get)
+    <% } 
+    if(httpVebs.some(v => v == 'PUT')) { %>
         /**
          * @swagger
          * /events-portal-bff/v1/<%= modulo %>/{id}:
@@ -136,6 +144,7 @@ module.exports = (app) => {
          *         description: Update <%= modulo %>
          */
         .put(controller.update)
+    <% }  if(httpVebs.some(v => v == 'DELETE')) { %>
         /**
          * @swagger
          * /events-portal-bff/v1/<%= modulo %>/{id}:
@@ -153,4 +162,6 @@ module.exports = (app) => {
          *         description: Delete <%= modulo %>
          */
         .delete(controller.remove)
+    <% } %>
+<% } %>
 }
